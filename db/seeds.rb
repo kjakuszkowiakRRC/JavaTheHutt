@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Variety.delete_all
 Product.delete_all
-# Product.create(name: "TESTER",
-#                            price: 3.50)
+
+for i in 0..5 do
+    Variety.create(name: Faker::Coffee.unique.variety)
+end
+
+# for i in 0..ran(10) do
+#     Product.create(name: "TESTER", price: 3.50)
+# end
+
