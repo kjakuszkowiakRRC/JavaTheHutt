@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_210453) do
+ActiveRecord::Schema.define(version: 2021_11_17_232135) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,29 @@ ActiveRecord::Schema.define(version: 2021_11_17_210453) do
     t.index ["variety_id"], name: "index_products_on_variety_id"
   end
 
+  create_table "province_taxes", force: :cascade do |t|
+    t.integer "province_id", null: false
+    t.integer "tax_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["province_id"], name: "index_province_taxes_on_province_id"
+    t.index ["tax_id"], name: "index_province_taxes_on_tax_id"
+  end
+
+  create_table "provinces", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "code"
+  end
+
+  create_table "taxes", force: :cascade do |t|
+    t.string "name"
+    t.decimal "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "varieties", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -28,4 +51,6 @@ ActiveRecord::Schema.define(version: 2021_11_17_210453) do
   end
 
   add_foreign_key "products", "varieties"
+  add_foreign_key "province_taxes", "provinces"
+  add_foreign_key "province_taxes", "taxes"
 end
