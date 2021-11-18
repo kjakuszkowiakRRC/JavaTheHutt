@@ -16,6 +16,19 @@
   </div>
 
   <div>
+    <%= form.label :variety_name %><br>
+    <%= form.collection_select :variety_id, Variety.order(:name), :id,:name %><br>
+  </div>
+
+   <div class="field">
+            <%= form.label :on_sale %>
+        <%= form.select :on_sale, [["No", "No"], ["Yes", "Yes"]] %>
+    <% product.errors.full_messages_for(:on_sale).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+ </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

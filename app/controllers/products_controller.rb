@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @variety = Variety.find(rand(23..27))
+    @variety = Variety.find(params[:product][:variety_id])
     # @variety = Variety.find(params[:variety_id])
     @product = @variety.products.create(product_params)
     # redirect_to product_path(@product)
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
 
-    if @product.update(product_params)
+    if @product.update(update_product_params)
       redirect_to @product
     else
       render :edit
@@ -50,6 +50,10 @@ class ProductsController < ApplicationController
   private
     def product_params
       params.require(:product).permit(:name, :price)
+    end
+
+    def update_product_params
+      params.require(:product).permit(:name, :price, :variety_id, :on_sale)
     end
 
     private

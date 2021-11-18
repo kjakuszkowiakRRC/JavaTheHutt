@@ -2,6 +2,12 @@
 
 <p>Price: $<%= @product.price %></p>
 
+<% if @product.on_sale == 1 %>
+ <p>Is this on sale?: No</p>
+<% else %>
+ <p>Is this on sale?: Yes</p>
+<% end %>
+
 <ul>
   <li><%= link_to "Edit", edit_product_path(@product) %></li>
   <li><%= link_to "Delete", product_path(@product),
