@@ -22,7 +22,7 @@
 
    <div class="field">
             <%= form.label :on_sale %>
-        <%= form.select :on_sale, [["No", "No"], ["Yes", "Yes"]] %>
+        <%= form.select :on_sale, [["No", 1], ["Yes", 2]] %>
     <% product.errors.full_messages_for(:on_sale).each do |message| %>
       <div><%= message %></div>
     <% end %>
