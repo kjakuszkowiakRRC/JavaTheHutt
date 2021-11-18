@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
   root "products#index"
-  resources :products
+  resources :products do
+    collection do
+      get "filter"
+    end
+  end
 
   resources :varieties do
     resources :products
   end
+
 
   # resources :variety do
   #   resources :products

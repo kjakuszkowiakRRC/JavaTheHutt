@@ -3,6 +3,17 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
+  def filter
+    if params[:filter] == "1"
+      @products = Product.where("on_sale = 2")
+    elsif params[:filter] == "2"
+      @products = Product.all
+      # @products = Product.where("updated_at > #{Date.today-3}")
+    else
+      @products = Product.all
+    end
+  end
+
   def show
     @product = Product.find(params[:id])
   end
