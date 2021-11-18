@@ -12,17 +12,18 @@
 <div>
     <%= submit_tag("Search", class: "button") %>
 </div>
+<%= hidden_field_tag(:search_filter_name, "TEST") %>
 <% end %>
+
+<p>
+    Found <%= pluralize(@products.count, 'Products') %> when searching for: <%= params[:keywords] %> under variety: <%= params[:search_filter_name] %>
+</p>
 
 <label>Filter: </label>
 <%= form_with(url: filter_products_path, method: :get, local: true) do %>
   <%= select_tag "filter", options_for_select([["On Sale", "On Sale"], ["Recently Updated", "Recently Updated"]], ),{include_blank: 'Select Filter'} %>
   <%= submit_tag 'Filter' %>
 <% end %>
-
-<p>
-    Found <%= pluralize(@products.count, 'Products') %> when filtering by for: <%= params[:filter] %>
-</p>
 
 <ul>
   <% @products.each do |product| %>
