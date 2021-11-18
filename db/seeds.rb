@@ -64,7 +64,8 @@ for i in 0..99 do
     # puts(is_on_sale)
     variety_record.products.create(name: Faker::Coffee.unique.blend_name,
                                   price: Faker::Number.decimal(l_digits:2),
-                                  on_sale: rand(1..2))
+                                  on_sale: rand(1..2),
+                                  description: Faker::Coffee.unique.notes)
 end
 
 # for i in 0..ran(10) do
