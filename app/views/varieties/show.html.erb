@@ -5,6 +5,12 @@
 </ul>
 
 <ul>
+  <li><%= link_to "Edit", edit_variety_path(@variety) %></li>
+  <li><%= link_to "Destroy", variety_path(@variety),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %></li>
+
+<ul>
   <% @variety.products.each do |product| %>
     <li>
       <%= link_to product.name, product %>: $<%= product.price %>
