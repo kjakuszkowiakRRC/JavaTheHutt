@@ -1,0 +1,10 @@
+<h1>Varieties</h1>
+<%= link_to "New Variety", new_variety_path %>
+
+<ul>
+  <% @varieties.each do |variety| %>
+    <li>
+      <%= link_to variety.name, variety %>
+    </li>
+  <% end %>
+</ul>

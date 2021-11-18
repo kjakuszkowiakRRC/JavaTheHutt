@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  root "products#index"
+  root "varieties#index"
 
-  resources :products do
-    resources :variety
+  resources :varieties do
+    resources :products
   end
+
+  # resources :variety do
+  #   resources :products
+  # end
 end

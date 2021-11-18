@@ -1,4 +1,6 @@
-<h1>Coffee</h1>
+<h1>Java The Hutt</h1>
+
+<%= link_to "New Product", new_product_path %>
 
 <ul>
   <% @products.each do |product| %>
@@ -6,6 +8,4 @@
       <%= link_to product.name, product %>: $<%= product.price %>
     </li>
   <% end %>
-
-<%= link_to "New Product", new_product_path %>
 </ul>

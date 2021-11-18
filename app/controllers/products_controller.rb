@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @variety = Variety.find(rand(7..12))
+    @variety = Variety.find(rand(23..27))
     # @variety = Variety.find(params[:variety_id])
     @product = @variety.products.create(product_params)
     # redirect_to product_path(@product)

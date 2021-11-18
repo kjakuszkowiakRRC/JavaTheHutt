@@ -1,0 +1,13 @@
+<h1><%= @variety.name %></h1>
+
+<ul>
+  <li><%= link_to "Edit", edit_variety_path(@variety) %></li>
+</ul>
+
+<ul>
+  <% @variety.products.each do |product| %>
+    <li>
+      <%= link_to product.name, product %>: $<%= product.price %>
+    </li>
+  <% end %>
+</ul>
