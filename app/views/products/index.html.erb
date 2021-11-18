@@ -1,15 +1,23 @@
 <h1>Java The Hutt</h1>
 <%= link_to "Our Varieties", varieties_path %><br>
 
-<%= link_to "New Product", new_product_path %>
+<%= link_to "New Product", new_product_path %><br>
 
-<div class="field">
-        <label>Filter: </label>
-
-
+<label>Search: </label>
+<%= form_with(url: search_products_path, method: :get, local: true) do %>
+<%= select_tag "search_filter", options_from_collection_for_select(Variety.order(:name), :id, :name), include_blank: true %>
+<div>
+    <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search For Product by name or description') %>
+    <%= hidden_field_tag(:some_column, "TEST")  %>
 </div>
+<div>
+    <%= submit_tag("Search", class: "button") %>
+</div>
+<% end %>
+
+<label>Filter: </label>
 <%= form_with(url: filter_products_path, method: :get, local: true) do %>
-  <%= select_tag "filter", options_for_select([["On Sale", 1], ["Recently Updated", 2]], ),{include_blank: 'Select Filter'} %>
+  <%= select_tag "filter", options_for_select([["On Sale", "On Sale"], ["Recently Updated", "Recently Updated"]], ),{include_blank: 'Select Filter'} %>
   <%= submit_tag 'Filter' %>
 <% end %>
 

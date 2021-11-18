@@ -4,13 +4,23 @@ class ProductsController < ApplicationController
   end
 
   def filter
-    if params[:filter] == "1"
+    if params[:filter] == "On Sale"
       @products = Product.where("on_sale = 2")
-    elsif params[:filter] == "2"
+    elsif params[:filter] == "Recently Updated"
       @products = Product.all
       # @products = Product.where("updated_at > #{Date.today-3}")
     else
       @products = Product.all
+    end
+  end
+
+  def search
+    if params[:search_filter]
+      wildcard_search = "%#{params[:keywords]}%"
+      @products = Product.where("name LIKE ? OR description LIKE ? AND variety_id = ?", wildcard_search, wildcard_search, params[:search_filter])
+    else
+      wildcard_search = "%#{params[:keywords]}%"
+      @products = Product.where("name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
     end
   end
 
