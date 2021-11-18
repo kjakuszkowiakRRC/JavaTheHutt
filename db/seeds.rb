@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Variety.delete_all
 Product.delete_all
+Variety.delete_all
 # ProvinceTax.delete_all
 # Province.delete_all
 # Tax.delete_all
@@ -47,8 +47,15 @@ require "csv"
 
 # end
 
-for i in 0..5 do
+for i in 0..4 do
     Variety.create(name: Faker::Coffee.unique.variety)
+    puts Variety.count
+end
+
+for i in 0..99 do
+    variety_record = Variety.order("RANDOM()").first()
+    variety_record.products.create(name: Faker::Coffee.unique.blend_name,
+                                  price: Faker::Number.decimal(l_digits:2))
 end
 
 # for i in 0..ran(10) do
