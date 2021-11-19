@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Product.delete_all
+# Product.delete_all
 # Variety.delete_all
 # ProvinceTax.delete_all
 # Province.delete_all
@@ -52,24 +52,24 @@ require "csv"
 #     puts Variety.count
 # end
 
-for i in 0..99 do
-    variety_record = Variety.order("RANDOM()").first()
-    # is_on_sale_generator = rand(1..2)
-    # is_on_sale = ""
-    # if is_on_sale_generator == 1
-    #     is_on_sale = "No"
-    # else
-    #     is_on_sale = "Yes"
-    # end
-    # puts(is_on_sale)
-    variety_record.products.create(name: Faker::Coffee.unique.blend_name,
-                                  price: Faker::Number.decimal(l_digits:2),
-                                  on_sale: rand(1..2),
-                                  description: Faker::Coffee.unique.notes)
-end
+# for i in 0..99 do
+#     variety_record = Variety.order("RANDOM()").first()
+#     # is_on_sale_generator = rand(1..2)
+#     # is_on_sale = ""
+#     # if is_on_sale_generator == 1
+#     #     is_on_sale = "No"
+#     # else
+#     #     is_on_sale = "Yes"
+#     # end
+#     # puts(is_on_sale)
+#     variety_record.products.create(name: Faker::Coffee.unique.blend_name,
+#                                   price: Faker::Number.decimal(l_digits:2),
+#                                   on_sale: rand(1..2),
+#                                   description: Faker::Coffee.unique.notes)
+# end
 
 # for i in 0..ran(10) do
 #     Product.create(name: "TESTER", price: 3.50)
 # end
 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
