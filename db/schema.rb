@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_20_213523) do
+ActiveRecord::Schema.define(version: 2021_11_20_215445) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -72,6 +72,22 @@ ActiveRecord::Schema.define(version: 2021_11_20_213523) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "province_id", null: false
+    t.string "street_address"
+    t.string "username", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["province_id"], name: "index_users_on_province_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   create_table "varieties", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -81,4 +97,5 @@ ActiveRecord::Schema.define(version: 2021_11_20_213523) do
   add_foreign_key "products", "varieties"
   add_foreign_key "province_taxes", "provinces"
   add_foreign_key "province_taxes", "taxes"
+  add_foreign_key "users", "provinces"
 end
