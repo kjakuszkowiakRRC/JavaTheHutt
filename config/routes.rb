@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   resource :provinces do
     resources :users
   end
-  resources :users
+
+  resources :users do
+    resources :payments
+  end
   # resources :variety do
   #   resources :products
   # end
