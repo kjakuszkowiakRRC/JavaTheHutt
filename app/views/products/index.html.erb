@@ -3,6 +3,8 @@
 
 <%= link_to "New Product", new_product_path %><br>
 
+<%= link_to "New User", new_user_path %><br>
+
 <label>Search: </label>
 <%= form_with(url: search_products_path, method: :get, local: true) do %>
 <%= select_tag "search_filter", options_from_collection_for_select(Variety.order(:name), :id, :name), include_blank: true %>
