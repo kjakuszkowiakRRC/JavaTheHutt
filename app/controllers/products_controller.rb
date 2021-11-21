@@ -78,7 +78,7 @@ class ProductsController < ApplicationController
     end
 
     private
-      def temp_variety_id
-        rand(4)
-      end
+    def temp_variety_id
+      rand(4)
+    end
 end
