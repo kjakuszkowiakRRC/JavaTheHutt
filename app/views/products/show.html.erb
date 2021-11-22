@@ -2,7 +2,7 @@
 <% if @product.image.present? %>
   <div class="card-image">
     <figure class="image">
-      <%= image_tag @product.image%>
+      <%= image_tag @product.image %>
     </figure>
   </div>
 <% end %>
@@ -23,5 +23,17 @@
                   method: :delete,
                   data: { confirm: "Are you sure?" } %></li>
 </ul>
+
+<% if cart.include?(@product) %>
+  <%= button_to cart_path(@product), method: :delete do %>
+    Remove from cart
+  <% end %>
+<% else %>
+  <%= form_with url: cart_index_path, method: :post do%>
+    <%= hidden_field_tag(:id, @product.id) %>
+    <%= button_tag 'Add to cart'%>
+  <% end %>
+<% end %>
+
 
 <%= render @product.variety %>

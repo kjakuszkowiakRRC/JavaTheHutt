@@ -3,8 +3,10 @@ Rails.application.routes.draw do
     resources :payments
     resources :orders
   end
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   root "products#index"
   resources :products do
     collection do
@@ -27,6 +29,8 @@ Rails.application.routes.draw do
   end
 
   resources :orders
+
+  resources :cart, only: [:create, :destroy]
   # resources :variety do
   #   resources :products
   # end

@@ -11,6 +11,26 @@
   </head>
 
   <body>
+  <nav>
+    <ul>
+      <li>
+        Cart
+        <% if cart.present? %>
+          <sup><%= cart.size %></sup>
+          <ul>
+            <% cart.each do |product| %>
+              <li>
+                <%= product.name %> <%= link_to "Remove Item", cart_path(product), method: :delete %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+  <% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+  <% end %>
     <br><ul>
       <% if user_signed_in? %>
         <li><%= link_to "Hi, #{current_user.username}", edit_user_registration_path %></li>
