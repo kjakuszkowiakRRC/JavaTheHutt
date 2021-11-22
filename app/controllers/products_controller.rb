@@ -7,8 +7,8 @@ class ProductsController < ApplicationController
     if params[:filter] == "On Sale"
       @products = Product.where("on_sale = 2")
     elsif params[:filter] == "Recently Updated"
-      @products = Product.all
-      # @products = Product.where("updated_at > #{Date.today-3}")
+      # @products = Product.all
+      @products = Product.where("updated_at > #{Date.today-1}")
     else
       @products = Product.all
     end
@@ -78,7 +78,7 @@ class ProductsController < ApplicationController
     end
 
     private
-      def temp_variety_id
-        rand(4)
-      end
+    def temp_variety_id
+      rand(4)
+    end
 end

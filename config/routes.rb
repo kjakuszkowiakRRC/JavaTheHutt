@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users do
+    resources :payments
+    resources :orders
+  end
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root "products#index"
   resources :products do
     collection do
@@ -11,7 +17,16 @@ Rails.application.routes.draw do
     resources :products
   end
 
+  resource :provinces do
+    resources :users
+  end
 
+  resources :users do
+    resources :payments
+    resources :orders
+  end
+
+  resources :orders
   # resources :variety do
   #   resources :products
   # end
