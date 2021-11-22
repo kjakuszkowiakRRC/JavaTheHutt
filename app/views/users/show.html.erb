@@ -3,10 +3,10 @@
 <p>Address: <%= @user.street_address %></p>
 <p>Province: <%= @user.province.name %></p>
 
-<h2>Comments</h2>
+<h2>Orders:</h2>
 <% @user.orders.each do |order| %>
   <p>
-    <strong>Order #: <%= link_to order.id, order_path(order) %> - <%= order.price %></strong>
+    <strong>Order #: <%= link_to order.id, order_path(order) %> - $<%= order.price %></strong>
   </p>
   <p>
     <strong>Date: <%= order.created_at %> - Status: <%= order.status %></strong>

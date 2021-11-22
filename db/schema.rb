@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_21_003030) do
+ActiveRecord::Schema.define(version: 2021_11_21_235755) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -57,16 +57,17 @@ ActiveRecord::Schema.define(version: 2021_11_21_003030) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "tax_amount"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "payments", force: :cascade do |t|
     t.string "credit_card_number"
     t.decimal "amount"
-    t.integer "user_id", null: false
+    t.integer "order_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_payments_on_user_id"
+    t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -128,7 +129,7 @@ ActiveRecord::Schema.define(version: 2021_11_21_003030) do
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "payments", "users"
+  add_foreign_key "payments", "orders"
   add_foreign_key "products", "varieties"
   add_foreign_key "province_taxes", "provinces"
   add_foreign_key "province_taxes", "taxes"
