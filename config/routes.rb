@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     resources :payments
     resources :orders
   end
-  # devise_for :admin_users, ActiveAdmin::Devise.config
-  # ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root "products#index"
   resources :products do
     collection do
