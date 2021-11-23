@@ -30,7 +30,9 @@ Rails.application.routes.draw do
     resources :orders
   end
 
-  resources :orders
+  resources :orders do
+    resources :province_tax
+  end
 
   # resources :cart, only: [:create, :destroy, :edit]
   # resources :variety do

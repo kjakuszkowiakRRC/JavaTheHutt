@@ -28,17 +28,6 @@ class CartController < ApplicationController
 
     end
 
-    # def edit
-    #     session[:shopping_cart].delete(params[:id])
-    #     id = params[:id].to_i
-
-    #     product = Product.find(id)
-    #     session[:shopping_cart][id] = params[:quantity]
-    #     flash[:notice] = " Quantity of #{product.name} changed to #{params[:quantity]}."
-
-    #     redirect_to root_path
-    # end
-
     def update_quantity
         session[:shopping_cart].delete(params[:id])
         id = params[:id].to_i
