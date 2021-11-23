@@ -20,16 +20,26 @@
           <ul>
             <% cart.each do |product| %>
               <li>
-                <%= product.name %> <%= link_to "Remove Item", cart_path(product), method: :delete %>
+                <%= product.name %>:
+
+                <%= form_with url: update_quantity_path(product), method: :update_quantity do%>
+                  <%= number_field_tag 'quantity', session[:shopping_cart][product.id.to_s].to_i, min: 1 %>
+                  <%= button_tag 'Edit quantity'%>
+                <% end %>
+                <%= link_to "Remove Item", cart_path(product), method: :delete %>
               </li>
             <% end %>
           </ul>
+          <%= link_to "Proceed to Checkout", cart_path(product), method: :delete %>
         <% end %>
       </li>
     </ul>
   </nav>
   <% if flash[:notice] %>
     <p><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:alert] %>
+    <p><%= flash[:alert] %></p>
   <% end %>
     <br><ul>
       <% if user_signed_in? %>
@@ -41,9 +51,6 @@
         <li><%= link_to 'Sign Up', new_user_registration_path %></li>
       <% end %>
     </ul>
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
 
     <br><%= link_to "Home Page", products_path %><br>
 

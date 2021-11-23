@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post 'cart/:id/update_quantity' => "cart#update_quantity", as: "update_quantity"
+  resources :cart, only: [:create, :destroy, :edit]
   devise_for :users do
     resources :payments
     resources :orders
@@ -30,7 +32,7 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  resources :cart, only: [:create, :destroy]
+  # resources :cart, only: [:create, :destroy, :edit]
   # resources :variety do
   #   resources :products
   # end

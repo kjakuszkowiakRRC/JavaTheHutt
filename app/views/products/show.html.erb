@@ -25,12 +25,19 @@
 </ul>
 
 <% if cart.include?(@product) %>
+
+  <%= form_with url: update_quantity_path(@product), method: :update_quantity do%>
+    <%= number_field_tag 'quantity', session[:shopping_cart][@product.id.to_s].to_i, min: 1 %>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= button_tag 'Edit quantity'%>
+  <% end %>
   <%= button_to cart_path(@product), method: :delete do %>
     Remove from cart
   <% end %>
 <% else %>
   <%= form_with url: cart_index_path, method: :post do%>
     <%= hidden_field_tag(:id, @product.id) %>
+    <%= number_field_tag 'quantity' %>
     <%= button_tag 'Add to cart'%>
   <% end %>
 <% end %>

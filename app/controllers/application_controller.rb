@@ -15,10 +15,14 @@ class ApplicationController < ActionController::Base
      private
 
      def initialize_session
-          session[:shopping_cart] ||= []
+          session[:shopping_cart] ||= Hash.new
      end
 
      def cart
-          Product.find(session[:shopping_cart])
+          products = []
+          session[:shopping_cart].each do |key, value|
+               products << key
+             end
+          Product.find(products)
      end
 end
