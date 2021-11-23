@@ -11,6 +11,8 @@
 # ProvinceTax.delete_all
 # Province.delete_all
 # Tax.delete_all
+OrderProduct.delete_all
+Order.delete_all
 
 require "csv"
 

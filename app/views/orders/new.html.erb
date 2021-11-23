@@ -1,7 +1,7 @@
 <h1>New Order</h1>
 
 
-<%= form_with model: @user do |form| %>
+<%= form_with model: @order do |form| %>
   <div>
         <li>User: <%=current_user.username %></li>
   </div>
@@ -10,27 +10,45 @@
   </div>
 <ul>
     <% cart.each do |product| %>
+            <% @order_product_ids << product.id %>
         <li>
-            <%= product.name %>:
+            Product #:
 
-            <%= form_with url: update_quantity_path(product), method: :update_quantity do%>
-                <%= number_field_tag 'quantity', session[:shopping_cart][product.id.to_s].to_i, min: 1 %>
-                <%= button_tag 'Edit quantity'%>
-            <% end %>
+            <input type="text" name="order[test][<%= product.id %>]" value="<%= product.id %>" readonly/><br>
+                <%= label_tag :quantity%>:
+
+                <%= label_tag 'quantity', session[:shopping_cart][product.id.to_s].to_i, min: 1 %>
             <%= link_to "Remove Item", cart_path(product), method: :delete %>
         </li>
         <li>
-            Price: <%= product.price %>
+            <%= product.name %>:
+
+                <%= label_tag 'quantity', session[:shopping_cart][product.id.to_s].to_i, min: 1 %>
+            <%= link_to "Remove Item", cart_path(product), method: :delete %>
+        </li>
+        <li>
+            <% @total_product_price = 0 %>
+            Price: <%= number_to_currency(product.price) %>
+            <% @order_product_prices << product.price.to_d %>
+            <% @order_product_quantities << session[:shopping_cart][product.id.to_s].to_i %>
+            <% @total_product_price = @total_product_price + product.price %>
             <% ProvinceTax.find_each do |provincial_tax| %>
                 <% if provincial_tax.province_id == current_user.province.id %>
-                  <%= provincial_tax.tax.amount %>
+                  <br>&ensp;<%= provincial_tax.tax.name  %>: <%= number_to_currency(provincial_tax.tax.amount * product.price) %>
+                  <% @total_taxes = @total_taxes + number_to_currency(provincial_tax.tax.amount * product.price)[1..4].to_d %>
+                  <% @total_product_price = @total_product_price + number_to_currency(provincial_tax.tax.amount * product.price)[1..4].to_d %>
                 <% end %>
             <% end %>
+            <br>&ensp;Product Price After Tax: <%= number_to_currency(@total_product_price) %>
         </li>
+        <% @total_price = @total_price + @total_product_price %>
     <% end %>
 </ul>
-Total Price: [INSERT PRICE HERE]
-
+ Total Price:
+<%= form.text_field :price, :value => @total_price,:readonly => true %><br>
+ Total Taxes:
+<%= form.text_field :tax_amount, :value => @total_taxes,:readonly => true %><br>
+    <%= hidden_field_tag(:new_test, @order_product_ids) %>
   <div>
     <%= form.submit %>
   </div>

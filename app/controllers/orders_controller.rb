@@ -1,4 +1,14 @@
 class OrdersController < ApplicationController
+    before_action :total_price_order
+    def total_price_order
+    @total_product_price = 0
+    @total_taxes = 0
+    @total_price = 0
+    @order_product_ids = []
+    @order_product_prices = []
+    @order_product_quantities = []
+    end
+
     def show
       @order = Order.find(params[:id])
     end
@@ -8,9 +18,28 @@ class OrdersController < ApplicationController
     end
 
     def create
-      @user = User.find([:user_id])
-      # @variety = Variety.find(params[:variety_id])
-      @order = @user.orders.create(order_params)
+      full_order_params = {}.merge(order_params)
+      full_order_params.store("status", "NEW")
+      @user = User.find(current_user.id)
+      @order = @user.orders.create(full_order_params)
+      flash[:notice] = " THIS IS A TEST:  #{@order_product_ids}"
+
+      products = []
+      session[:shopping_cart].each do |key, value|
+           products << key
+         end
+         product_list = Product.find(products)
+
+         puts("TEST: #{product_list}")
+      product_list.each do |product|
+        # @product = Product.find(product_id[test])
+        # @order.products << product
+
+        OrderProduct.create(order: @order, product: product, bought_price: product.price, quantity: session[:shopping_cart][product.id.to_s].to_i)
+        # @order.order_products.create(product: product, bought_price: product.price, quantity: session[:shopping_cart][product.id.to_s].to_i, returned: true)
+      end
+
+      #add create loop for order_products with array of product_ids
       # redirect_to product_path(@product)
       # redirect_to variety_path(@variety)
       # @product = Product.new(product_params)
@@ -44,12 +73,13 @@ class OrdersController < ApplicationController
     end
 
     private
-      def product_params
-        params.require(:product).permit(:name, :price)
+      def order_params
+        params.require(:order).permit(:price, :tax_amount)
       end
+
     private
         def update_order_params
-            params.require(:product).permit(:name, :price, :variety_id, :on_sale)
+            params.require(:product).permit(:name, :price, :variety_id, :on_sale => [:test])
         end
     # add a function to loop through all orders depending on user_id kind of like index
 end
