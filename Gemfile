@@ -21,6 +21,8 @@ gem 'image_processing'
 gem 'faker', '~> 2.10', '>= 2.10.2'
 gem 'activeadmin'
 gem 'devise'
+gem 'stripe'
+gem 'stripe_event'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

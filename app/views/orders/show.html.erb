@@ -13,5 +13,11 @@
     <%= link_to product.name, product %> - Quantity: <%= product.order_product.take.quantity %> @ $<%= product.order_product.take.bought_price %>
   </p>
 <% end %>
+
+
+<%= form_with url: checkout_create_path, remote: true do %>
+    <%= button_tag 'Proceed to Payment'%>
+<% end %>
+<%= link_to "Proceed to Checkout", checkout_create_path, remote: true %>
 <%# add if statement for order status with shipped date and paid date ex from product.show%>
 <%# add loop for products %>
