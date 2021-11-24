@@ -11,4 +11,9 @@
   <p>
     <strong>Date: <%= order.created_at %> - Status: <%= order.status %></strong>
   </p>
+  <p>
+    <%= link_to "Edit", edit_order_path(order) %>
+  </p>
+
+
 <% end %>
