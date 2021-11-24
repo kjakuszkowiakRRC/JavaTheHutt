@@ -23,6 +23,7 @@ gem 'activeadmin'
 gem 'devise'
 gem 'stripe'
 gem 'stripe_event'
+gem 'kaminari'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
