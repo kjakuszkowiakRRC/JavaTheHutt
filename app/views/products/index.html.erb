@@ -1,8 +1,4 @@
-<h1>Java The Hutt</h1>
-<%= link_to "Our Varieties", varieties_path %><br>
-
-<%= link_to "New Product", new_product_path %><br>
-
+<div class="tile">
 <label>Search: </label>
 <%= form_with(url: search_products_path, method: :get, local: true) do %>
 <%= select_tag "search_filter", options_from_collection_for_select(Variety.order(:name), :id, :name), include_blank: true %>
@@ -20,12 +16,15 @@
   <%= select_tag "filter", options_for_select([["On Sale", "On Sale"], ["Recently Updated", "Recently Updated"]], ),{include_blank: 'Select Filter'} %>
   <%= submit_tag 'Filter' %>
 <% end %>
-
-<ul>
+</div>
+<div class="tile is-parent is-flex-wrap-wrap is-6 has-text-centered is-align-content-space-evenly">
   <% @products.each do |product| %>
-    <li>
+<div class="tile is-parent is-align-content-space-evenly">
+    <div class="tile is-child box">
       <%= link_to product.name, product %>: $<%= product.price %>
-    </li>
+</div>
+    </div>
   <% end %>
-</ul>
+</div>
+</div>
 <%= paginate @products %>
