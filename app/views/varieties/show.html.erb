@@ -1,19 +1,12 @@
-<h1><%= @variety.name %></h1>
 
-<ul>
-  <li><%= link_to "Edit", edit_variety_path(@variety) %></li>
-</ul>
+<span class="is-size-3 has-text-centered"><h1><%= @variety.name %></h1></span><br>
 
-<ul>
-  <li><%= link_to "Edit", edit_variety_path(@variety) %></li>
-  <li><%= link_to "Destroy", variety_path(@variety),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></li>
-
-<ul>
+<div class="tile is-parent is-flex-wrap-wrap is-6 has-text-centered is-align-content-space-evenly">
   <% @variety.products.each do |product| %>
-    <li>
-      <%= link_to product.name, product %>: $<%= product.price %>
-    </li>
+    <div class="tile is-parent is-align-content-space-evenly">
+        <div class="tile is-child box">
+          <%= link_to product.name, product %>: $<%= product.price %>
+        </div>
+    </div>
   <% end %>
-</ul>
+</div>

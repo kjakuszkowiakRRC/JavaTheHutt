@@ -1,5 +1,7 @@
-class Variety < ApplicationRecord
-    has_many :products
+# frozen_string_literal: true
 
-    validates :name, presence: true
+class Variety < ApplicationRecord
+  has_many :products, dependent: :destroy
+
+  validates :name, presence: true
 end

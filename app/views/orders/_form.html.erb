@@ -1,13 +1,17 @@
+<span class="is-size-3 has-text-centered"><p>User: <%=current_user.username %></p></span>
+<span class="is-size-3 has-text-centered"><p>Address: <%=current_user.street_address %>, <%=current_user.province.code %></p></span>
+<div class="columns is-centered">
+  <div class="column is-half is-offset-one-quarter">
 <%= form_with model: order do |form| %>
   <div>
-        <li>User: <%=current_user.username %></li>
   </div>
   <div>
-        <li>Address: <%=current_user.street_address %>, <%=current_user.province.code %></li>
+
   </div>
 <ul>
     <% cart.each do |product| %>
             <% @order_product_ids << product.id %>
+  <div class="box">
         <li>
             Product #:
 
@@ -40,6 +44,7 @@
             <% end %>
             <br>&ensp;Product Price After Tax: <%= number_to_currency(@total_product_price) %>
         </li>
+        </div>
         <% @total_price = @total_price + @total_product_price %>
     <% end %>
 </ul>
@@ -52,3 +57,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+</div>
+</div>

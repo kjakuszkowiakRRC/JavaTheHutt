@@ -1,10 +1,14 @@
-<h1>Username: <%= @user.username %></h1>
+<span class="is-size-3 has-text-centered"><h1>Username: <%= @user.username %></h1></span><br>
+<span class="is-size-3 has-text-centered"><h1>Address: <%= @user.street_address %></h1></span><br>
+<span class="is-size-3 has-text-centered"><h1>Province: <%= @user.province.name %></h1></span><br>
 
-<p>Address: <%= @user.street_address %></p>
-<p>Province: <%= @user.province.name %></p>
 
-<h2>Orders:</h2>
+<h2 class="is-size-5 has-text-centered">Orders:</h2>
+
+<div class="columns is-centered">
+  <div class="column is-half is-offset-one-quarter">
 <% @user.orders.each do |order| %>
+  <div class="box">
   <p>
     <strong>Order #: <%= link_to order.id, order_path(order) %> - $<%= order.price %></strong>
   </p>
@@ -12,8 +16,9 @@
     <strong>Date: <%= order.created_at %> - Status: <%= order.status %></strong>
   </p>
   <p>
-    <%= link_to "Edit", edit_order_path(order) %>
+    <%= link_to "Edit", edit_order_path(order), class: "button is-light" %>
   </p>
-
-
+  </div>
 <% end %>
+</div>
+</div>

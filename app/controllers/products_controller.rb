@@ -1,27 +1,30 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
   def index
     @products = Product.order(:name).page params[:page]
   end
 
   def filter
-    if params[:filter] == "On Sale"
-      @products = Product.where("on_sale = 2")
-    elsif params[:filter] == "Recently Updated"
-      # @products = Product.all
-      @products = Product.where("updated_at > #{Date.today-1}")
-    else
-      @products = Product.all
-    end
+    @products = case params[:filter]
+                when "On Sale"
+                  Product.where("on_sale = 2")
+                when "Recently Updated"
+                  Product.where("updated_at > #{Time.zone.today - 1}")
+                else
+                  Product.all
+                end
   end
 
   def search
-    if params[:search_filter]
-      wildcard_search = "%#{params[:keywords]}%"
-      @products = Product.where("name LIKE ? OR description LIKE ? AND variety_id = ?", wildcard_search, wildcard_search, params[:search_filter])
-    else
-      wildcard_search = "%#{params[:keywords]}%"
-      @products = Product.where("name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
-    end
+    wildcard_search = "%#{params[:keywords]}%"
+    @products = if params[:search_filter]
+                  Product.where("name LIKE ? OR description LIKE ? AND variety_id = ?",
+                                wildcard_search, wildcard_search, params[:search_filter])
+                else
+                  Product.where("name LIKE ? OR description LIKE ?", wildcard_search,
+                                wildcard_search)
+                end
   end
 
   def show
@@ -34,11 +37,7 @@ class ProductsController < ApplicationController
 
   def create
     @variety = Variety.find(params[:product][:variety_id])
-    # @variety = Variety.find(params[:variety_id])
     @product = @variety.products.create(product_params)
-    # redirect_to product_path(@product)
-    # redirect_to variety_path(@variety)
-    # @product = Product.new(product_params)
 
     if @product.save
       redirect_to @product
@@ -69,16 +68,16 @@ class ProductsController < ApplicationController
   end
 
   private
-    def product_params
-      params.require(:product).permit(:name, :price)
-    end
 
-    def update_product_params
-      params.require(:product).permit(:name, :price, :variety_id, :on_sale)
-    end
+  def product_params
+    params.require(:product).permit(:name, :price)
+  end
 
-    private
-    def temp_variety_id
-      rand(4)
-    end
+  def update_product_params
+    params.require(:product).permit(:name, :price, :variety_id, :on_sale)
+  end
+
+  def temp_variety_id
+    rand(4)
+  end
 end

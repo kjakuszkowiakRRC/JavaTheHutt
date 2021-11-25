@@ -1,4 +1,7 @@
-<div class="tile">
+
+<div class="columns is-centered">
+  <div class="column is-half">
+  <div class="tile">
 <label>Search: </label>
 <%= form_with(url: search_products_path, method: :get, local: true) do %>
 <%= select_tag "search_filter", options_from_collection_for_select(Variety.order(:name), :id, :name), include_blank: true %>
@@ -17,14 +20,23 @@
   <%= submit_tag 'Filter' %>
 <% end %>
 </div>
-<div class="tile is-parent is-flex-wrap-wrap is-6 has-text-centered is-align-content-space-evenly">
-  <% @products.each do |product| %>
-<div class="tile is-parent is-align-content-space-evenly">
-    <div class="tile is-child box">
-      <%= link_to product.name, product %>: $<%= product.price %>
-</div>
     </div>
-  <% end %>
-</div>
-</div>
+    </div>
+<div class="columns is-centered">
+  <div class="column is-offset-one-quarter">
+  <div class="tile is-parent is-flex-wrap-wrap is-6 has-text-centered is-align-content-space-evenly">
+    <% @products.each do |product| %>
+      <div class="tile is-parent is-align-content-space-evenly">
+          <div class="tile is-child box">
+            <%= link_to product.name, product %>: $<%= product.price %>
+          </div>
+      </div>
+    <% end %>
+  </div>
+
+<div class="columns is-centered">
+  <div class="column">
 <%= paginate @products %>
+    </div>
+    </div>
+</div>

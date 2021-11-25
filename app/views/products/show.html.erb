@@ -1,4 +1,5 @@
-<h1>Blend Name: <%= @product.name %></h1>
+<span class="is-size-3 has-text-centered"><h1><%= @product.name %></h1></span><br>
+<%= render @product.variety %>
 <% if @product.image.present? %>
   <div class="card-image">
     <figure class="image">
@@ -7,40 +8,32 @@
   </div>
 <% end %>
 
-<p>Price: $<%= @product.price %></p>
+<p class="is-size-6 has-text-centered">Price: $<%= @product.price %></p>
 
-<% if @product.on_sale == 1 %>
- <p>Is this on sale?: No</p>
-<% else %>
- <p>Is this on sale?: Yes</p>
+<% if @product.on_sale != 1 %>
+ <p class="is-size-6 has-text-centered">THIS IS ON SALE</p>
 <% end %>
 
-<p>Description: <%= @product.description %></p>
+<p class="is-size-6 has-text-centered">Description: <%= @product.description %></p>
 
-<ul>
-  <li><%= link_to "Edit", edit_product_path(@product) %></li>
-  <li><%= link_to "Delete", product_path(@product),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></li>
-</ul>
+<div class="columns is-centered">
+  <div class="column is-half is-offset-one-quarter">
+    <% if cart.include?(@product) %>
 
-<% if cart.include?(@product) %>
-
-  <%= form_with url: update_quantity_path(@product), method: :update_quantity do%>
-    <%= number_field_tag 'quantity', session[:shopping_cart][@product.id.to_s].to_i, min: 1 %>
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <%= button_tag 'Edit quantity'%>
-  <% end %>
-  <%= button_to cart_path(@product), method: :delete do %>
-    Remove from cart
-  <% end %>
-<% else %>
-  <%= form_with url: cart_index_path, method: :post do%>
-    <%= hidden_field_tag(:id, @product.id) %>
-    <%= number_field_tag 'quantity' %>
-    <%= button_tag 'Add to cart'%>
-  <% end %>
-<% end %>
-
-
-<%= render @product.variety %>
+          <%= form_with url: update_quantity_path(@product), method: :update_quantity, class: "is-expanded" do%>
+        <%= number_field_tag 'quantity', session[:shopping_cart][@product.id.to_s].to_i, min: 1, class: "has-addons-centered" %>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        <%= button_tag 'Edit quantity', class: "has-addons-centered"%>
+      <% end %>
+      <%= button_to cart_path(@product), method: :delete do %>
+        Remove from cart
+      <% end %>
+    <% else %>
+      <%= form_with url: cart_index_path, method: :post do%>
+        <%= hidden_field_tag(:id, @product.id) %>
+        <%= number_field_tag 'quantity' %>
+        <%= button_tag 'Add to cart'%>
+      <% end %>
+    <% end %>
+  </div>
+</div>

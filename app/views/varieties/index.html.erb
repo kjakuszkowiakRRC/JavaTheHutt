@@ -1,11 +1,12 @@
-<%= link_to "All Products", products_path %>
-<h1>Varieties</h1>
-<%= link_to "New Variety", new_variety_path %>
+<%= link_to "All Products", products_path, class: "button is-light" %>
+<span class="is-size-3 has-text-centered"><h1>Varieties</h1></span><br>
 
-<ul>
+<div class="tile is-parent is-flex-wrap-wrap has-text-centered is-align-content-space-evenly">
   <% @varieties.each do |variety| %>
-    <li>
-      <%= link_to variety.name, variety %>
-    </li>
+    <div class="tile is-parent is-align-content-space-evenly">
+      <div class="tile is-child box">
+        <%= link_to variety.name, variety %>
+      </div>
+    </div>
   <% end %>
-</ul>
+</div>
